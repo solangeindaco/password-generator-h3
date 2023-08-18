@@ -39,11 +39,13 @@ function generatePassword(includeLowercase, includeUppercase, includeNumbers,
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
-function writePassword(passwordLength) {
-  let includeLowercase = false;
-  let includeUppercase = false;
-  let includeNumbers = true;
-  let includeSpecialCharacters = false;
+function writePassword() {
+  let passwordLength = window.prompt("Choose a password length", "Value should be between 8 and 128");
+  let includeLowercase = window.confirm("Do you want to include lowercase characters?");
+  let includeUppercase = window.confirm("Do you want to include uppercase charatecrs?");
+  let includeNumbers = window.confirm("Do you want to include numbers?");
+  let includeSpecialCharacters = window.confirm("Do you want to include special characters");
+
   var password = generatePassword(includeLowercase, includeUppercase, includeNumbers, 
     includeSpecialCharacters, passwordLength);
   var passwordText = document.querySelector("#password");
@@ -52,10 +54,6 @@ function writePassword(passwordLength) {
 
 }
 
-function askForPassowrdLength() {
-  let passwordLength = window.prompt("Choose a password lenght between 8 and 128");
-  writePassword(passwordLength);
-}
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", askForPassowrdLength);
+generateBtn.addEventListener("click", writePassword());
