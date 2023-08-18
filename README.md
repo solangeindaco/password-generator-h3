@@ -10,8 +10,8 @@ I learn:
 
 ## Installation
 
-Repository URL: https://github.com/solangeindaco/horiseon-html-css-refactor-h1  
-Website URL:  https://solangeindaco.github.io/horiseon-html-css-refactor-h1/  
+Repository URL: https://github.com/solangeindaco/password-generator-h1  
+Website URL:  https://solangeindaco.github.io/password-generator-h1/  
 
 ## Usage
 
@@ -27,7 +27,7 @@ To refactor this website, I used the following tutorials:
     - CSS: https://developer.mozilla.org/en-US/docs/Web/CSS  
     - Github :https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github    
     - Eric Meyer CSS Reset file: https://meyerweb.com/eric/tools/css/reset/   
-    
+
 ## License
 
 Licensed under the [MIT](LICENSE) license.

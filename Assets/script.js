@@ -1,6 +1,6 @@
 
 function generatePassword(includeLowercase, includeUppercase, includeNumbers, 
-includeSpecialCharacters, passwordLength) {
+                          includeSpecialCharacters, passwordLength) {
 
   const lowercaseCharacters = "abcdefghijklmnopqrstuvwxyz"; 
   const uppercaseCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -8,26 +8,28 @@ includeSpecialCharacters, passwordLength) {
   const specialCharacters = " !\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
   
 
-  var characterSet = "";
+  var possibleCharacters = "";
 
   if (includeLowercase) {
-    characterSet += lowercaseCharacters;
+    possibleCharacters += lowercaseCharacters;
   }
   if (includeUppercase) {
-    characterSet += uppercaseCharacters;
+    possibleCharacters += uppercaseCharacters;
   }
   if (includeNumbers) {
-    characterSet += numbers;
+    possibleCharacters += numbers;
   }
   if (includeSpecialCharacters) {
-    characterSet += specialCharacters;
+    possibleCharacters += specialCharacters;
   }
    
   let newPassword = "";
 
-  for (let i = 0; i <= passwordLength ; i++) {
-    let characterSetIndex = Math.floor(Math.random()* characterSet.length);
-    newPassword += characterSet.charAt(characterSetIndex)
+  for (let i = 0; i < passwordLength ; i++) {
+    // Select a ramdonly an index inside the possibleCharacters.
+    let characterSetIndex = Math.floor(Math.random()* possibleCharacters.length);
+    // Concar the character in the position index selected randomly in the above sentence to the new password
+    newPassword += possibleCharacters.charAt(characterSetIndex)
   }
   return newPassword;
 }
@@ -37,12 +39,11 @@ includeSpecialCharacters, passwordLength) {
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
-function writePassword() {
+function writePassword(passwordLength) {
   let includeLowercase = false;
   let includeUppercase = false;
   let includeNumbers = true;
   let includeSpecialCharacters = false;
-  let passwordLength =10;
   var password = generatePassword(includeLowercase, includeUppercase, includeNumbers, 
     includeSpecialCharacters, passwordLength);
   var passwordText = document.querySelector("#password");
@@ -51,5 +52,10 @@ function writePassword() {
 
 }
 
+function askForPassowrdLength() {
+  let passwordLength = window.prompt("Choose a password lenght between 8 and 128");
+  writePassword(passwordLength);
+}
+
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", askForPassowrdLength);
