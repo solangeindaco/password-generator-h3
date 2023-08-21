@@ -10,8 +10,8 @@ I learn:
 
 ## Installation
 
-Repository URL: https://github.com/solangeindaco/password-generator-h1  
-Website URL:  https://solangeindaco.github.io/password-generator-h1/  
+Repository URL: https://github.com/solangeindaco/password-generator-h3  
+Website URL:  https://solangeindaco.github.io/password-generator-h3/  
 
 ## Usage
 
