@@ -2,7 +2,7 @@
 
 ## Description
 
-I deployed this repository to learn about Javascript. The basic code for the website was provided by a Bootcamp course. I implemented an algoritm to generate a password according to the criteria chosen by the user. I used dialog to ask the user about his/her choices. 
+I deployed this repository to learn about Javascript. The basic code for the website was provided by a Bootcamp course. I implemented an algoritm to generate a password according to the criteria chosen by the user. I used dialogs to ask the user about his/her choices. 
 I learn:  
     - how to display a dialog with an optional message, "window.prompts".  
     - how to display a dialog with an optional message, and to wait until the user either confirms or cancels the dialog, "window.confirm".   
