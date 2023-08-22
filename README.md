@@ -2,11 +2,12 @@
 
 ## Description
 
-I deployed this repository to learn about Javascript. The basic code for the website was provided by a Bootcamp course. I implemented an algoritm for generated a password according the user's chosen criteria
+I deployed this repository to learn about Javascript. The basic code for the website was provided by a Bootcamp course. I implemented an algoritm for generated a password according the user's chosen criteria. I used dialog to ask the user about his/her choices. 
 I learn:  
-    - how to struture an website using the following tags: header, nav,main, aside,footer.  
-    - How to use semantic html tag to make the website more accessible.  
-    - How to style a website using a CSS file.  
+    - how to display a dialog with an optional message, "window.prompts".  
+    - how to display a dialog with an optional message, and to wait until the user either confirms or cancels the dialog, "window.confirm".   
+    - How to display a dialog with an optional message, and to wait until the user dismisses the dialog: "window.alert".
+    - How to use Math object to select randomly a number.  
 
 ## Installation
 
@@ -24,7 +25,9 @@ The following image shows the web application's appearance and functionality:
 
 To refactor this website, I used the following tutorials:  
     - Javascript: https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics  
-    - CSS: https://developer.mozilla.org/en-US/docs/Web/CSS  
+    - Javascript, Math: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math   
+    - Javacript, window.prompt: https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt    
+    - Javascript, window.alert: https://developer.mozilla.org/en-US/docs/Web/API/Window/alert      
     - Github :https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github    
     - Eric Meyer CSS Reset file: https://meyerweb.com/eric/tools/css/reset/   
 

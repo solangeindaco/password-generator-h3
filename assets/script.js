@@ -55,14 +55,17 @@ function askUserPasswordLength(){
   let passwordLength = window.prompt("Choose a password length", "Value should be between 8 and 128");
   if (!isPasswordLengthValid(passwordLength)){
       window.alert("The password length should be between 8 and 128.");
+      // Display a dialog asking the user if he/she wants to try again, and to wait until the user either confirms or cancels the dialog.
       let tryAgain = window.confirm("Do you want to try again?");
+      // if the user confirm the dialog, then it will ask again for the password length
       if (tryAgain){
         passwordLength = askUserPasswordLength();
-      }
+      } // if the user doesn't want to try again, the function will return an invalid password length
   }
   return passwordLength;
 }
 
+// Check whether the user chose at least one character type to include in the password
 function userChoseAtLeastCharacterType(characterTypesOptions){
   return (characterTypesOptions[includeLowercaseIndex] || characterTypesOptions[includeUppercaseIndex]
     || characterTypesOptions[includeNumbersIndex] ||  characterTypesOptions[includeSpecialCharactersIndex]);
@@ -80,6 +83,7 @@ function askUserForCharacterTypesToInclude(){
   
   if (!userChoseAtLeastCharacterType(characterTypesOptions)){
     window.alert("The password should have at least a Character type.");
+    // Display a dialog asking the user if he/she wants to try again, and to wait until the user either confirms or cancels the dialog.
     let tryAgain = window.confirm("Do you want to try again?");
     if (tryAgain){
       characterTypesOptions = askUserForCharacterTypesToInclude();
