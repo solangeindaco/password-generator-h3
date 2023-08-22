@@ -82,6 +82,7 @@ function askUserForCharacterTypesToInclude(){
   characterTypesOptions[includeSpecialCharactersIndex] = window.confirm("Do you want to include special characters?");
   
   if (!userChoseAtLeastCharacterType(characterTypesOptions)){
+    //Display a dialog with a message, and wait until the user dismisses the dialog.
     window.alert("The password should have at least a Character type.");
     // Display a dialog asking the user if he/she wants to try again, and to wait until the user either confirms or cancels the dialog.
     let tryAgain = window.confirm("Do you want to try again?");
@@ -96,18 +97,19 @@ function askUserForCharacterTypesToInclude(){
 function writePassword() {
   // Get references to the #password element
   let passwordText = document.querySelector("#password");
-  // Initialize the value of the #password element to blanck
+  // Initialize the value of the #password element to an empty string
   passwordText.value = "";
   let passwordLength = askUserPasswordLength();
 
   if (isPasswordLengthValid(passwordLength)) {
     let characterTypesOptions = askUserForCharacterTypesToInclude();
     if (userChoseAtLeastCharacterType(characterTypesOptions)){
+      // The password is generated with the user's choices
       password = generatePassword(characterTypesOptions, passwordLength);
-      let passwordText = document.querySelector("#password");
       passwordText.value = password;
     }else {
-       window.alert("The password length should be at least 8 and no more than 128 \n and have at least one character type.");
+      //// The password is not generated and a dialog is display with a message, and wait until the user dismisses the dialog.
+      window.alert("The password length should be at least 8 and no more than 128 \n and have at least one character type.");
     }
   }
 }
