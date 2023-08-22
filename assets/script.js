@@ -1,6 +1,11 @@
+const includeLowercaseIndex = 0; // Index in the Array to store the user's choice to include lowercase characters to the new password
+const includeUppercaseIndex = 1; // Index in the Array to store the user's choice to include uppercase characters to the new password
+const includeNumbersIndex = 2 // Index in the Array to store the user's choice to include digits to the new password
+const includeSpecialCharactersIndex = 3;  // Index in the Array to store the user's choice to include special characters to the new password
 
-function generatePassword(includeLowercase, includeUppercase, includeNumbers, 
-includeSpecialCharacters, passwordLength) {
+
+/* Function to generate a new password using the user's choices*/
+function generatePassword(characterTypesOptions, passwordLength) {
 
   const lowercaseCharacters = "abcdefghijklmnopqrstuvwxyz"; 
   const uppercaseCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -8,68 +13,98 @@ includeSpecialCharacters, passwordLength) {
   const specialCharacters = " !\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
   
 
-  var possibleCharacters = "";
-
-  if (includeLowercase) {
+  let possibleCharacters = "";
+  /* Concat all lowercase characters to the possible characters that could be on the password */
+  if (characterTypesOptions[includeLowercaseIndex]) {
     possibleCharacters += lowercaseCharacters;
   }
-  if (includeUppercase) {
+  /* Concat all uppercase characters to the possible characters that could be on the password */
+  if (characterTypesOptions[includeUppercaseIndex]) {
     possibleCharacters += uppercaseCharacters;
   }
-  if (includeNumbers) {
+  /* Concat all digits to the possible characters that could be on the password */
+  if (characterTypesOptions[includeNumbersIndex]) {
     possibleCharacters += numbers;
   }
-  if (includeSpecialCharacters) {
+  /* Concat all special charecters to the possible characters that could be on the password */
+  if (characterTypesOptions[includeSpecialCharactersIndex]) {
     possibleCharacters += specialCharacters;
   }
    
   let newPassword = "";
 
   for (let i = 0; i < passwordLength ; i++) {
-    // Select a ramdonly an index inside the possibleCharacters.
+    // Select ramdonly an index inside the possibleCharacters.
     let characterSetIndex = Math.floor(Math.random()* possibleCharacters.length);
-    // Concar the character in the position index selected randomly in the above sentence to the new password
-    newPassword += possibleCharacters.charAt(characterSetIndex)
+    /*Concat to the new password the character that it is in the position 'charaterSetIndex' in the string of possible characters 
+    selected randomly in the above sentence */
+    newPassword += possibleCharacters.charAt(characterSetIndex);
   }
   return newPassword;
 }
 
+
+/*Check if the password length is at least 8 characters and no more than 128 characters*/
 function isPasswordLengthValid(passwordLength) {
-    return (passwordLength>8) && (passwordLength<128);
+    return (passwordLength>=8) && (passwordLength<=128);
 }
 
+/* Display a Dialog asking the user how long the password should be, 
+with a restriction that it should be between 8 and 128*/
 function askUserPasswordLength(){
   let passwordLength = window.prompt("Choose a password length", "Value should be between 8 and 128");
   if (!isPasswordLengthValid(passwordLength)){
-      window.alert("The password length should be between 8 and 128")
-      passwordLength = window.prompt("Choose a password length", "Value should be between 8 and 128");
+      window.alert("The password length should be between 8 and 128.");
+      let tryAgain = window.confirm("Do you want to try again?");
+      if (tryAgain){
+        passwordLength = askUserPasswordLength();
+      }
   }
   return passwordLength;
 }
 
+function userChoseAtLeastCharacterType(characterTypesOptions){
+  return (characterTypesOptions[includeLowercaseIndex] || characterTypesOptions[includeUppercaseIndex]
+    || characterTypesOptions[includeNumbersIndex] ||  characterTypesOptions[includeSpecialCharactersIndex]);
+}
+
+/* Ask the user to choose at least one character type for the password, and return an array with his/her options
+  If she/he doesn't want to select at least one option the function return all false values*/
+function askUserForCharacterTypesToInclude(){
+  /* Initialized the characterTypes as if the user choosed any of them */
+  let characterTypesOptions = [false,false,false,false];
+  characterTypesOptions[includeLowercaseIndex]= window.confirm("Do you want to include lowercase characters?");
+  characterTypesOptions[includeUppercaseIndex] = window.confirm("Do you want to include uppercase characters?");
+  characterTypesOptions[includeNumbersIndex] = window.confirm("Do you want to include numbers?");
+  characterTypesOptions[includeSpecialCharactersIndex] = window.confirm("Do you want to include special characters?");
+  
+  if (!userChoseAtLeastCharacterType(characterTypesOptions)){
+    window.alert("The password should have at least a Character type.");
+    let tryAgain = window.confirm("Do you want to try again?");
+    if (tryAgain){
+      characterTypesOptions = askUserForCharacterTypesToInclude();
+    }
+  }
+  return characterTypesOptions;
+}
+
 // Write password to the #password input
 function writePassword() {
+  // Get references to the #password element
+  let passwordText = document.querySelector("#password");
+  // Initialize the value of the #password element to blanck
+  passwordText.value = "";
   let passwordLength = askUserPasswordLength();
 
-  let includeLowercase = window.confirm("Do you want to include lowercase characters?");
-  let includeUppercase = window.confirm("Do you want to include uppercase characters?");
-  let includeNumbers = window.confirm("Do you want to include numbers?");
-  let includeSpecialCharacters = window.confirm("Do you want to include special characters");
-
-  if (!(includeLowercase || includeUppercase ||  includeNumbers || includeSpecialCharacters)){
-    window.alert("The password should have at least one type of character. Please choose at least one type of character.")
-    includeLowercase = window.confirm("Do you want to include lowercase characters?");
-    includeUppercase = window.confirm("Do you want to include uppercase characters?");
-    includeNumbers = window.confirm("Do you want to include numbers?");
-    includeSpecialCharacters = window.confirm("Do you want to include special characters");
-  }
-
-  if (isPasswordLengthValid(passwordLength) && (includeLowercase || includeUppercase ||  includeNumbers || includeSpecialCharacters)){
-    password = generatePassword(includeLowercase, includeUppercase, includeNumbers, includeSpecialCharacters, passwordLength);
-    var passwordText = document.querySelector("#password");
-    passwordText.value = password;
-  } else {
-    window.alert("Please try again, the password length should be more than 8 and less than 128 and have at least one character.");
+  if (isPasswordLengthValid(passwordLength)) {
+    let characterTypesOptions = askUserForCharacterTypesToInclude();
+    if (userChoseAtLeastCharacterType(characterTypesOptions)){
+      password = generatePassword(characterTypesOptions, passwordLength);
+      let passwordText = document.querySelector("#password");
+      passwordText.value = password;
+    }else {
+       window.alert("The password length should be at least 8 and no more than 128 \n and have at least one character type.");
+    }
   }
 }
 
